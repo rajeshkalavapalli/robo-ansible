@@ -5,9 +5,9 @@
     - name: inistiatting  redis repo file 
       ansible.builtin.command: dnf install https://rpms.remirepo.net/enterprise/remi-release-8.rpm -y
     
-    - name: enable redis
-      ansible.builtin.service:
-        name: redis-server
+    - name: enableing  redis
+      ansible.builtin.package:
+        name: redis
         enabled: yes
 
     - name: Installing Redis
