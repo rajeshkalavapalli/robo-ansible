@@ -29,4 +29,33 @@
       src: /tmp/catalogue.zip
       dest: /app
       remote_src: yes
+  
+  - name: insalling  dependency
+    ansible.builtin.command: npm install 
+      args:
+        chdir: /app
+
+  - name: copy catalogue service 
+    ansible.builtin.copy:
+      src: catalogue.service
+      dest: /etc/systemd/system/catalogue.service
+
+  - name: demon reload 
+    ansible.builtin.systemd_service:
+      daemon_reload: true
+  
+  #let start data entery after reload 
+
+  - name: copy mongodb repo
+    ansible.builtin.copy:
+      src: mongo.repo
+      dest: /etc/yum.repos.d/mongo.repo
+
+  - name: Install MongoDB client 
+    ansible.builtin.package:
+      name: mongodb-org-shell
+      state: present
+
+
+
 
