@@ -1,0 +1,11 @@
+- name: creating catalogue  
+  hosts: catalogue
+  become: yes
+  tasks:
+  - name:  disableing old  nodejs ebnable new nodejs 
+    ansible.builtin.command: dnf module disable nodejs -y ; dnf module enable nodejs:18 -y
+
+  - name:  Install NodeJS
+    ansible.builtin.dnf: 
+      name: httpd
+      state: present
