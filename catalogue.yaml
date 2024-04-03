@@ -57,7 +57,7 @@
       state: present
 
   - name: get the catageories count 
-    ansible.builtin.command:
+    ansible.builtin.command: mongo --host mongodb.bigmatrix.in --quiet --eval 'db = db.getSiblingDB("catalogue"); db.products.count()'
     register: product_count 
 
 
