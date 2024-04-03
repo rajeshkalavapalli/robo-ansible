@@ -10,16 +10,15 @@
         name: redis
         state: present
 
-    - name: enableing  redis
-      ansible.builtin.service:
-        name: redis
-        enabled: yes
-
     - name: allow remote connection 
       ansible.builtin.replace:
         path: /etc/redis/redis.conf
         regexp: '127.0.0.1'
         replace: '0.0.0.0'
+    - name: enableing  redis
+      ansible.builtin.service:
+        name: redis
+        enabled: yes
 
     - name: start redis
       ansible.builtin.service:
