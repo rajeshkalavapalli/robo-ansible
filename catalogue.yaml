@@ -7,7 +7,7 @@
 
   - name:  Install NodeJS
     ansible.builtin.dnf: 
-      name: httpd
+      name: nodejs 
       state: present
 
   - name: create roboshop user 
