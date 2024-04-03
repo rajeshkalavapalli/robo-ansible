@@ -7,7 +7,7 @@
     
     - name: enable redis
       ansible.builtin.service:
-        name: redis
+        name: redis-server
         enabled: yes
 
     - name: Installing Redis
