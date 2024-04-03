@@ -61,12 +61,14 @@
     register: product_count 
 
 
-  - name: print the count 
-    ansible.builtin.debug:
-      msg: "product count : {{product_count}}"
+  # - name: print the count 
+  #   ansible.builtin.debug:
+  #     msg: "product count : {{product_count}}"
 
   - name: load cataloge data 
     ansible.builtin.command: mongo --host mongodb.bigmatrix.in < /app/schema/catalogue.js
+    when: product_count.stdout == 0
+    
 
 
 
