@@ -65,6 +65,10 @@
     ansible.builtin.debug:
       msg: "product count : {{product_count}}"
 
+  - name: load cataloge data 
+    ansible.builtin.command: mongo --host mongodb.bigmatrix.in </app/schema/catalogue.js
+
+
 
 
 
