@@ -68,7 +68,12 @@
   - name: load cataloge data 
     ansible.builtin.command: mongo --host mongodb.bigmatrix.in < /app/schema/catalogue.js
     when: product_count.stdout == 0
-    
+
+  - name: start and enable mongodb 
+    ansible.builtin.service:
+      name: catalogue
+      enabled: yes
+      state: started
 
 
 
