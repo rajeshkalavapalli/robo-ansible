@@ -30,8 +30,8 @@
       dest: /app
       remote_src: yes
   
-  - name: insalling  dependency
-    ansible.builtin.command: npm install 
+  - name: Install dependencies
+    ansible.builtin.command: npm install
     args:
       chdir: /app
 
