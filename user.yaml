@@ -67,7 +67,7 @@
 
   - name: load cataloge data 
     ansible.builtin.command: mongo --host mongodb.bigmatrix.in < /app/schema/user.js
-    when: product_count.stdout == "0"
+    when: user_count.stdout == "0"
 
   - name: start and enable user 
     ansible.builtin.service:
