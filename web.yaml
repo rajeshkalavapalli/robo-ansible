@@ -24,7 +24,8 @@
       state: present 
 
   - name: Download the frontend content
-    ansible.builtin.command: https://roboshop-builds.s3.amazonaws.com/web.zip
+    ansible.builtin.get_url: 
+      url: https://roboshop-builds.s3.amazonaws.com/web.zip
       dest: /tmp 
   
   - name: extraction application 
