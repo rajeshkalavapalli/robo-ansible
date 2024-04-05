@@ -4,7 +4,10 @@
   tasks:
     - name: inistiatting  redis repo file 
       ansible.builtin.command: dnf install https://rpms.remirepo.net/enterprise/remi-release-8.rpm -y
-    
+
+    - name: enableing  redis
+      ansible.builtin.command: dnf module enable redis:remi-6.2 -y
+        
     - name: Installing Redis
       ansible.builtin.package:
         name: redis
