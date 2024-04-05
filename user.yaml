@@ -1,0 +1,76 @@
+- name: creating user  
+  hosts: user
+  become: yes
+  tasks:
+  - name:  disableing old  nodejs ebnable new nodejs 
+    ansible.builtin.shell: dnf module disable nodejs -y ; dnf module enable nodejs:18 -y
+
+  - name:  Install NodeJS
+    ansible.builtin.dnf: 
+      name: nodejs 
+      state: present
+
+  - name: create roboshop user 
+    ansible.builtin.user:
+      name: roboshop
+  
+  - name: creating app directory 
+    ansible.builtin.file:
+      path: /app
+      state: directory
+  
+  - name: Download the application 
+    ansible.builtin.get_url:
+      url: https://roboshop-builds.s3.amazonaws.com/user.zip
+      dest: /tmp
+  
+  - name: unzipping 
+    ansible.builtin.unarchive:
+      src: /tmp/user.zip
+      dest: /app
+      remote_src: yes
+  
+  - name: Install dependencies
+    ansible.builtin.command: npm install
+    args:
+      chdir: /app
+
+  - name: copy user service 
+    ansible.builtin.copy:
+      src: user.service
+      dest: /etc/systemd/system/user.service
+
+  - name: demon reload 
+    ansible.builtin.systemd_service:
+      daemon_reload: true
+  
+  #let start data entery after reload 
+
+  - name: copy mongodb repo
+    ansible.builtin.copy:
+      src: mongo.repo
+      dest: /etc/yum.repos.d/mongo.repo
+
+  - name: Install MongoDB client 
+    ansible.builtin.package:
+      name: mongodb-org-shell
+      state: present
+
+  - name: get the catageories count 
+    ansible.builtin.command: mongo --host mongodb.bigmatrix.in --quiet --eval 'db = db.getSiblingDB("user"); db.user.count()'
+    register: user_count 
+
+
+  # - name: print the count 
+  #   ansible.builtin.debug:
+  #     msg: "product count : {{product_count}}"
+
+  - name: load cataloge data 
+    ansible.builtin.command: mongo --host mongodb.bigmatrix.in < /app/schema/user.js
+    when: product_count.stdout == 0
+
+  - name: start and enable user 
+    ansible.builtin.service:
+      name: user
+      enabled: yes
+      state: started
