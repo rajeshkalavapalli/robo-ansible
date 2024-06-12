@@ -1,9 +1,9 @@
 #!/bin/bash
 
 AMI="ami-031d574cddc5bb371" # this keeps on changing
-SG_ID="sg-0ecc0d38b1974ad3f" # replace with your SG ID
+SG_ID="sg-0918fbe51ab2db638" # replace with your SG ID
 INSTANCES=("mongodb" "redis" "mysql" "rabbitmq" "catalogue" "user" "cart" "shipping" "payment" "dispatch" "web")
-ZONE_ID="Z07107583SIBMEYCNYDA6" # replace your zone ID
+ZONE_ID="Z02400681RG5QICC3BHZN" # replace your zone ID
 DOMAIN_NAME="bigmatrix.in"
 
 for i in "${INSTANCES[@]}"
