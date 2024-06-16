@@ -66,32 +66,22 @@
         state: started
         enabled: yes
 
-    - name: MySQL Service enable start
-      ansible.builtin.service:
-        name: mysqld
-        state: started
-        enabled: yes
+     - name: install mysql client
+       ansible.builtin.dnf:
+        name: mysql
+        state: present
+      
     
     - name: loading schemma 
-      ansible.builtin.command: mysql -h <MYSQL-SERVER-IPADDRESS> -uroot -pRoboShop@1 < /app/schema/shipping.sql 
+      ansible.builtin.command: mysql -h mysql.bigmatrix.in -uroot -pRoboShop@1 < /app/schema/shipping.sql 
 
     - name: enable shipping 
       ansible.builtin.service:
         name: shipping
         state: restarted 
 
-    - name: install 
-      ansible.builtin.dnf:
-        name: mysql
-        state: present
-
-    - name: loading schema 
-      ansible.builtin.command: mysql -h <MYSQL-SERVER-IPADDRESS> -uroot -pRoboShop@1 < /app/schema/shipping.sql 
     
-    - name: sart shipping 
-      ansible.builtin.service:
-        name: shipping
-        state: started 
+   
         
 
 
