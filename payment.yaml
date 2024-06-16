@@ -1,14 +1,9 @@
 - name: installing payment
   hosts: payment
   become: yes
-  tasks: payment installing 
-    - name: Installing Python and other dependencies
-      ansible.builtin.dnf:
-        name:
-          - python36
-          - gcc
-          - python3-devel
-        state: present
+  tasks: 
+    - name: Install Python 
+      ansible.builtin.command: dnf install python36 gcc python3-devel -y
 
     - name: adding user 
       ansible.builtin.user:
