@@ -42,9 +42,6 @@
       ansible.builtin.command: mv target/shipping-1.0.jar shipping.jar
       args:
         chdir: /app
-      
-    - name: rename jar file
-      ansible.builtin.command: mv target/shipping-1.0.jar shipping.jar
 
     - name: demon reload
       ansible.builtin.command:
