@@ -2,8 +2,14 @@
   hosts: payment
   become: yes
   tasks: 
-    - name: Install Python 
-      ansible.builtin.command: dnf install python36 gcc python3-devel -y
+    - name: Install python packages
+      ansible.builtin.dnf:
+        name: "{{item}}" 
+        state: present
+      loop:
+      - python36
+      - gcc
+      - python3-devel
 
     - name: adding user 
       ansible.builtin.user:
