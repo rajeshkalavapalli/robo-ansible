@@ -2,7 +2,7 @@
   hosts: payment
   become: yes
   tasks: payment installing 
-    - name: Install Python 3.6
+    - name: Install Python 
       ansible.builtin.command: dnf install python36 gcc python3-devel -y
 
     - name: adding user 
