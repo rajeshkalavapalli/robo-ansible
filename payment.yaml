@@ -36,7 +36,7 @@
         dest: /app/payment.zip
     
     - name: installing pip 
-      Anible.builtin.command: pip3.6 install -r requirements.txt
+      Anible.builtin.pip: pip3.6 install -r requirements.txt
 
     - name: copying service 
       ansible.builtin.copy:
