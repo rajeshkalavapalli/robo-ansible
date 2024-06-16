@@ -65,7 +65,7 @@
       
       
     - name: loading schemma 
-      ansible.builtin.command: mysql -h mysql.bigmatrix.in -uroot -pRoboShop@1 < /app/schema/shipping.sql 
+      ansible.builtin.command: mysql -h mysql.bigmatrix.in -uroot -pRoboShop@1 < /app/schema/shipping.sql  
 
     - name: enable shipping 
       ansible.builtin.service:
