@@ -43,11 +43,6 @@
       args:
         chdir: /app
 
-    - name: demon reload
-      ansible.builtin.command:
-      args:
-        chdir: /app
-
     - name: copy shipping service
       ansible.builtin.copy:
         src: shipping.service
