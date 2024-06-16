@@ -17,8 +17,8 @@
       ansible.builtin.service:
         name: rabbitmq-server
         state: restarted
-        enable: yes
-
+        enabled: yes
+    
     - name: user adding 
       ansible.builtin.command: rabbitmqctl add_user roboshop roboshop123
 
