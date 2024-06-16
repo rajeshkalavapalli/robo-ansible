@@ -22,10 +22,10 @@
         state: directory
 
 
-    - name: Download the application
+    - name: download shipping application
       ansible.builtin.get_url:
         url: https://roboshop-builds.s3.amazonaws.com/shipping.zip
-        path: /tmp
+        dest: /tmp
 
     - name: unzziping
       ansible.builtin.unarchive:
