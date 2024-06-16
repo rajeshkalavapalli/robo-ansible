@@ -1,0 +1,53 @@
+- name: installing payment
+  hosts: payment
+  become: yes
+  tasks: payment installing 
+    - name: Install Python 3.6
+      Anible.builtin.command: dnf install python36 gcc python3-devel -y
+
+    - name: adding user 
+      ansible.builtin.user:
+      name: roboshop
+
+    - name: removing add directory 
+      ansible.builtin.file:
+        path: /app 
+        state: absent
+    
+    - name: creating add directory 
+      ansible.builtin.file:
+        path: /app 
+        state: directory 
+
+    - name: Downloading the application
+      ansible.builtin.get_url:
+        url: https://roboshop-builds.s3.amazonaws.com/payment.zip
+        dest: /tmp
+
+    - name: unzipping file 
+      ansible.builtin.unarchive:
+        src: /tmp
+        dest: /app/payment.zip
+    
+    - name: installing pip 
+      Anible.builtin.command: pip3.6 install -r requirements.txt
+
+    - name: copying service 
+      ansible.builtin.copy:
+        src: payment.service
+        dest: /etc/systemd/system/payment.service
+
+    - name: daemon-reload
+      ansible.builtin.systemd_service:
+        daemon_reload: true
+    
+    - name: enabling paymnet 
+      ansible.builtin.service:
+        name: payment
+        enabled: yes
+        state: restarted
+
+    
+
+
+
