@@ -68,8 +68,8 @@
 
     - name: install mysql client
       ansible.builtin.dnf:
-      name: mysql
-      state: present
+        name: mysql
+        state: present
       
       
     - name: loading schemma 
