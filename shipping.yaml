@@ -1,0 +1,101 @@
+- name: insalling shipping 
+  hosts: shipping
+  become: yes
+  tasks: 
+    - name: installing maven 
+      ansible.builtin.dnf:
+        name: maven 
+        state: present
+
+    - name: user add 
+      ansible.builtin.user:
+        name: roboshop
+
+    - name: delete directory 
+      ansible.builtin.file:
+        path: /app
+        state: absent
+    
+    - name: create directory
+      ansible.builtin.file:
+        path: /app
+        state: directory
+
+
+    - name: Download the application
+      ansible.builtin.get_url:
+        url: https://roboshop-builds.s3.amazonaws.com/shipping.zip
+        path: /tmp
+
+    - name: unzziping
+      ansible.builtin.unarchive:
+        src: /tmp/shipping.zip
+        dest: /app
+        remote_src: yes
+    
+    - name: install dependes
+      ansible.builtin.command: mvn clean package
+      args:
+       chdir: /app
+
+    - name: rename jar file
+      ansible.builtin.command: mv target/shipping-1.0.jar shipping.jar
+      args:
+        chdir: /app
+      
+    - name: rename jar file
+      ansible.builtin.command: mv target/shipping-1.0.jar shipping.jar
+
+    - name: demon reload
+      ansible.builtin.command:
+      args:
+        chdir: /app
+
+    - name: copy shipping service
+      ansible.builtin.copy:
+        src: shipping.service
+        dest: /etc/systemd/system/shipping.service
+
+    - name: daemon-reload
+      ansible.builtin.systemd_service:
+        daemon_reload: true
+
+    - name: enable shipping 
+      ansible.builtin.service:
+        name: shipping
+        state: started
+        enabled: yes
+
+    - name: MySQL Service enable start
+      ansible.builtin.service:
+        name: mysqld
+        state: started
+        enabled: yes
+    
+    - name: loading schemma 
+      ansible.builtin.command: mysql -h <MYSQL-SERVER-IPADDRESS> -uroot -pRoboShop@1 < /app/schema/shipping.sql 
+
+    - name: enable shipping 
+      ansible.builtin.service:
+        name: shipping
+        state: restarted 
+
+    - name: install 
+      ansible.builtin.dnf:
+        name: mysql
+        state: present
+
+    - name: loading schema 
+      ansible.builtin.command: mysql -h <MYSQL-SERVER-IPADDRESS> -uroot -pRoboShop@1 < /app/schema/shipping.sql 
+    
+    - name: sart shipping 
+      ansible.builtin.service:
+        name: shipping
+        state: started 
+        
+
+
+    
+    
+
+
