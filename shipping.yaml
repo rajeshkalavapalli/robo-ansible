@@ -66,12 +66,12 @@
         state: started
         enabled: yes
 
-     - name: install mysql client
-       ansible.builtin.dnf:
-        name: mysql
-        state: present
+    - name: install mysql client
+      ansible.builtin.dnf:
+      name: mysql
+      state: present
       
-    
+      
     - name: loading schemma 
       ansible.builtin.command: mysql -h mysql.bigmatrix.in -uroot -pRoboShop@1 < /app/schema/shipping.sql 
 
