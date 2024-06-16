@@ -39,8 +39,7 @@
     - name: Installing pip packages
       ansible.builtin.command:
         cmd: pip3.6 install -r requirements.txt
-        args:
-          chdir: /app
+        chdir: /app
 
     - name: Copying service file
       ansible.builtin.copy:
