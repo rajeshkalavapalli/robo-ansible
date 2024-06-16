@@ -22,7 +22,7 @@
     - name: user adding 
       ansible.builtin.command: rabbitmqctl add_user roboshop roboshop123
 
-    - name: set uer permision
-    ansible.builtin.command: rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*"
+    - name: set permissions
+      ansible.builtin.command: rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*"
        
 
